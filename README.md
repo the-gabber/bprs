@@ -1,3 +1,6 @@
+[![Linux build status](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml)
+
+
 ## What is BPRS (Binary PaRSer)
 
 BPRS is a C++ 23+ header-only library for fast parsing of binary data, for example network or USB protocols, or any
