@@ -1,4 +1,5 @@
 [![Linux build status](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml)
+[![MacOS build status](https://github.com/the-gabber/bprs/actions/workflows/mac-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/mac-builds.yml)
 
 
 ## What is BPRS (Binary PaRSer)

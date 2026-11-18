@@ -1,0 +1,32 @@
+name: Mac Builds
+
+on: [push, pull_request]
+
+env:
+  CTEST_OUTPUT_ON_FAILURE: 1
+  CTEST_NO_TESTS_ACTION: error
+
+jobs:
+  build:
+    runs-on: ${{matrix.image}}
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [macos-15, macos-15-intel]
+        build_type: [Debug, Release]
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Configure
+      run: |
+        cmake -B ${{github.workspace}}/build -GNinja \
+              -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
+              -DBUILD_EXAMPLE=ON
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_type}}
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{matrix.build_type}}
