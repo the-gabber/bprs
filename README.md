@@ -1,5 +1,6 @@
 [![Linux build status](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/linux-builds.yml)
 [![MacOS build status](https://github.com/the-gabber/bprs/actions/workflows/mac-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/mac-builds.yml)
+[![Windows build status](https://github.com/the-gabber/bprs/actions/workflows/windows-builds.yml/badge.svg)](https://github.com/the-gabber/bprs/actions/workflows/windows-builds.yml)
 
 
 ## What is BPRS (Binary PaRSer)

@@ -91,14 +91,6 @@ public:
 	*/
 	DataRange(std::byte* buf, size_t size) noexcept : Range(buf, size), m_position(buf) {}
 
-	/*! Return equality of data ranges, position is ignored.
-	@result true if data ranges are equal.
-	*/
-	bool operator==(const Range& other) const
-	{
-		return static_cast<const Range&>(*this) == other;
-	}
-
 	/*! Check if range from current offset with size of type T is available in the buffer. And if
 	so it returns reference on data read only. Parsing position will be advanced on T size.
 	@result Constant reference to data which we are reading.
