@@ -320,7 +320,8 @@ public:
 	*/
 	size_t bytesLeft() const noexcept { return end() - m_position; }
 
-	/*! Returns constant subrange of current range. Doesn't change parsing position.
+	/*! Returns constant subrange of current range. Doesn't change parsing position but more expensive than
+	readRange/writeRange.
 	@param offset Offset for new range from start of current range.
 	@param size New range size.
 	@result New constant subrange of current.
@@ -328,14 +329,13 @@ public:
 	*/
 	[[nodiscard]] const DataRange subrange(size_t offset, size_t size) const LIFETIMEBOUND
 	{
-		if (offset > std::numeric_limits<size_t>::max() - size //Check overflow
-			|| !isBounded(offset + size))
+		if (!isBoundedOff(offset, size))
 			throw std::length_error("Bad subrange");
 
 		return {const_cast<std::byte*>(buffer()) + offset, size};
 	}
 
-	/*! Returns subrange of current range. Doesn't change parsing position.
+	/*! Returns subrange of current range. Doesn't change parsing position but more expensive than readRange/writeRange.
 	@param offset Offset for new range from start of current range.
 	@param size New range size.
 	@result New subrange of current.
@@ -343,8 +343,7 @@ public:
 	*/
 	[[nodiscard]] DataRange subrange(size_t offset, size_t size) LIFETIMEBOUND
 	{
-		if (offset > std::numeric_limits<size_t>::max() - size //Check overflow
-			|| !isBounded(offset + size))
+		if (!isBoundedOff(offset, size))
 			throw std::length_error("Bad subrange");
 
 		return {buffer() + offset, size};
@@ -366,6 +365,14 @@ private:
 	T* pointer(size_t count) const noexcept { return std::launder(reinterpret_cast<T*>(m_position)); }
 #endif
 
+	bool isBoundedOff(size_t offset, size_t length) const noexcept
+	{
+		auto left = size();
+		if (offset > left)
+			return false;
+		left -= offset;
+		return length <= left;
+	}
 	bool isBoundedLen(size_t length) const noexcept { return length <= bytesLeft(); }
 
 	mutable std::byte* m_position;

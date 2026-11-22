@@ -597,7 +597,8 @@ TEST(DataRange, SubrangeOverflow)
 	size_t bufVal = reinterpret_cast<size_t>(buf);
 	size_t tillOverflow = std::numeric_limits<size_t>::max() - bufVal;
 
-	EXPECT_THROW({auto sr = dr.subrange(0, tillOverflow + 10);}, std::length_error);
+	EXPECT_THROW({auto sr = dr.subrange(10, tillOverflow + 1);}, std::length_error);
+	EXPECT_THROW({auto sr = dr.subrange(tillOverflow + 1, 10);}, std::length_error);
 }
 
 TEST(DataRange, SubrangeConstOverflow)
@@ -609,7 +610,8 @@ TEST(DataRange, SubrangeConstOverflow)
 	size_t bufVal = reinterpret_cast<size_t>(buf);
 	size_t tillOverflow = std::numeric_limits<size_t>::max() - bufVal;
 
-	EXPECT_THROW({auto sr = dr.subrange(0, tillOverflow + 10);}, std::length_error);
+	EXPECT_THROW({auto sr = dr.subrange(10, tillOverflow + 1);}, std::length_error);
+	EXPECT_THROW({auto sr = dr.subrange(tillOverflow + 1, 10);}, std::length_error);
 }
 
 // ==================== Wrapper Tests ====================
